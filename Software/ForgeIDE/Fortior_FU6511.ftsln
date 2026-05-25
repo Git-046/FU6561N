@@ -1,0 +1,28 @@
+# FortiorTech IDE Solution File, Format Version 1.0.0
+# Warning: do not edit or delete this solution file!
+
+# ////////////////////////////////////////////////////
+# Begin Solution
+<Solution>
+	NAME : Fortior_6511_SVPWM
+	GUID : {8782B45A-0772-4cbb-99AD-745CFF6219F1}
+	STARTUP : {9D434CD7-BF73-4da9-AF57-612891BDA27D}
+	ACTIVECONFIGURATION : Debug
+</Solution>
+# End Solution
+
+# ////////////////////////////////////////////////////
+# Begin Project
+<Projects>
+	COUNT : 1
+	<Project1>
+		NAME : Fortior_6511_SVPWM
+		GUID : {9D434CD7-BF73-4da9-AF57-612891BDA27D}
+		CLSID : {0D4D5604-6A52-4042-9F34-64D371B53EA6}
+		PATH : .\Fortior_FU6511.ftproj
+		Dependencies : 
+	</Project1>
+</Projects>
+
+# End Project
+# ////////////////////////////////////////////////////
