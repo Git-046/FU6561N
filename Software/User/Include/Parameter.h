@@ -1,5 +1,5 @@
 /**
- * @file     
+ * @file     Parameter.h 
  * @version  V1.0.0
  * @author   Leo.Li
  * @date     2024-7-15
@@ -24,15 +24,15 @@
 
 /*CPU Parameter*/
 #define MCU_CLOCK                       (24.0)                                                        ///< (MHz) 主频
-#define PWM_VALUE_LOAD                  (uint16)(MCU_CLOCK * 500 / PWM_FREQUENCY)                 ///< PWM 定时器重载值 20190514修改
+#define PWM_VALUE_LOAD                  (uint16)(MCU_CLOCK * 500 / PWM_FREQUENCY)                     ///< PWM 定时器重载值 20190514修改
 
 /*deadtime Parameter*/
 #define PWM_LOAD_DEADTIME               (PWM_DEADTIME * MCU_CLOCK)                                    ///< 死区设置值
 
-#define PWM_VALUE_LOAD_Start            (uint16)(MCU_CLOCK * 500 / PWM_FREQUENCY_Start)                 ///< PWM 定时器重载值 20190514修改
+#define PWM_VALUE_LOAD_Start            (uint16)(MCU_CLOCK * 500 / PWM_FREQUENCY_Start)               ///< PWM 定时器重载值 20190514修改
 
 /*deadtime Parameter*/
-#define PWM_LOAD_DEADTIME_Start         (PWM_DEADTIME_Start * MCU_CLOCK)                                    ///< 死区设置值
+#define PWM_LOAD_DEADTIME_Start         (PWM_DEADTIME_Start * MCU_CLOCK)                              ///< 死区设置值
 
 /*硬件板子参数设置值------------------------------------------------------------------*/
 /*hardware current sample Parameter*/
@@ -52,9 +52,9 @@
 
 
 /*电流基准的电路参数*/
-#define HW_BOARD_CURR_MAX               (HW_ADC_REF / 2 / HW_AMPGAIN / HW_RSHUNT)                     ///< 最大采样电流
-#define HW_BOARD_CURR_MIN               (-HW_BOARD_CURR_MAX)                                          ///< 最小采样电流
-#define HW_BOARD_CURR_BASE              (HW_BOARD_CURR_MAX * 2)                                       ///< 电流基准
+#define HW_BOARD_CURR_MAX               (HW_ADC_REF / 2 / HW_AMPGAIN / HW_RSHUNT)    ///< 最大采样电流
+#define HW_BOARD_CURR_MIN               (-HW_BOARD_CURR_MAX)                         ///< 最小采样电流
+#define HW_BOARD_CURR_BASE              (HW_BOARD_CURR_MAX * 2)                      ///< 电流基准
 
 /*hardware voltage sample Parameter*/
 /*母线电压采样分压电路参数*/
@@ -63,16 +63,16 @@
 /* -----过温保护值设置----- */
 #define Tempera_Value(NTC_Value) 		_Q15((5.0*NTC_Value/(10.0+NTC_Value))/HW_ADC_REF)	///< 10K上拉电阻时，NTC阻值对应Q15_AD值，单位：KΩ
 /*硬件过流保护DAC值*/
-// #define DAC_OverCurrentValue            _Q6(I_ValueX(HWOCValue)) + 0x1F             ///< 
-#define DAC_OverCurrentValue            _Q8(I_ValueX(HWOCValue)) + 0x7F             ///< 
+// #define DAC_OverCurrentValue         _Q6(I_ValueX(HWOCValue)) + 0x1F             ///< 过流保护DAC值
+#define DAC_OverCurrentValue            _Q8(I_ValueX(HWOCValue)) + 0x7F             ///< 过流保护DAC值 
 
 /*初始位置检测DAC值*/
-#define DAC_IPDCurValue                 _Q8(I_ValueX(IPD_CurValue)) + 0x7F             ///< 
+#define DAC_IPDCurValue                 _Q8(I_ValueX(IPD_CurValue)) + 0x7F          ///< 
 
 /* obsever parameter set value */
-#define BASE_FREQ                       ((MOTOR_SPEED_BASE / 60.0) * Pole_Pairs)                        ///< 基准频率
+#define BASE_FREQ                       ((MOTOR_SPEED_BASE / 60.0) * Pole_Pairs)     ///< 基准频率
 
-#define POWER_BASE                      (HW_BOARD_VOLT_MAX*HW_BOARD_CURR_BASE/16)                        ///< 基准功率
+#define POWER_BASE                      (HW_BOARD_VOLT_MAX*HW_BOARD_CURR_BASE/16)    ///< 基准功率
 
 /* -----Current Calib----- *
 /* -----(Disable)---禁止-- */
@@ -106,8 +106,8 @@
 
 /*预充电，DUTY控制占空比*/
 #define UL_PWM				(ULE)
-#define VL_PWM			    (VLE)
-#define WL_PWM		        (WLE)
+#define VL_PWM			     (VLE)
+#define WL_PWM		          (WLE)
 
 /*三相下桥全开，不受DUTY所控制*/
 #define UL_VL_WL_ON			(ULP | VLP | WLP)

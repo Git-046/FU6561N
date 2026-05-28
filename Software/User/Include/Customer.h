@@ -29,11 +29,11 @@
 /*电机参数值*/
 #define Pole_Pairs                        (5.0)                          ///< 极对数
 /*------------------------------------------------------------------------------*/
-#define TIM1_FREQ					      (3.0)			            	//MHz，这个值修改后，定时器需要同步修改
-#define THE_CLK_FREQ				      (1500.0)		            //kHz  不要需改
-#define DIV_A_SPD						  (uint32) (256*65536*TIM1_FREQ*166.67/THE_CLK_FREQ)
-#define MOTOR_SPEED_BASE                  (5000)                              //速度基准
-#define MOTORSPEEDBASE_TIMER			  (uint32)(32767.0*(TIM1_FREQ * 1000 * 1000*60/Pole_Pairs/6.0/MOTOR_SPEED_BASE ))
+#define TIM1_FREQ					                (3.0)			            	       //MHz，这个值修改后，定时器需要同步修改
+#define THE_CLK_FREQ				              (1500.0)		                   //kHz  不要需改
+#define DIV_A_SPD						              (uint32) (256*65536*TIM1_FREQ*166.67/THE_CLK_FREQ)
+#define MOTOR_SPEED_BASE                  (5000)                         //速度基准
+#define MOTORSPEEDBASE_TIMER			        (uint32)(32767.0*(TIM1_FREQ * 1000 * 1000*60/Pole_Pairs/6.0/MOTOR_SPEED_BASE ))
 
 /**
  * 硬件PCBA参数设置根据驱动芯片的类型选择
@@ -86,10 +86,10 @@
                                              3.母线电压采样参数                                                  
 ---------------------------------------------------------------------------------------------------------------------------- */
 /** @brief 母线电压分压配置 */
-#define  RV1                                (30.0)                    /*!< (单位: kΩ) 母线分压电阻1 (当 @ref HW_RV_MODE 为 @ref RVEXT 时有效) */ 
-#define  RV2                                (5.1)                     /*!< (单位: kΩ) 母线分压电阻2 ( @ref HW_RV_MODE 为 @ref RVEXT 时有效) */
+#define  RV1                              (30.0)                    /*!< (单位: kΩ) 母线分压电阻1 (当 @ref HW_RV_MODE 为 @ref RVEXT 时有效) */ 
+#define  RV2                              (5.1)                     /*!< (单位: kΩ) 母线分压电阻2 ( @ref HW_RV_MODE 为 @ref RVEXT 时有效) */
 
-#define Calib_Time                        (1000)                          ///< 校正次数，固定1000次，单位:次
+#define Calib_Time                        (1000)                    ///< 校正次数，固定1000次，单位:次
 
  /**********************电机运行参数*****************************
  1.  预充电参数
@@ -119,7 +119,7 @@
  * @param (CHARGE_DUTY)        预充电占空比
  * @param (CHARGE_TIME)        预充电时间
  */
-#define CHARGE_DUTY                       (0.5)                          ///< (%)  UVW每相单独输出
+#define CHARGE_DUTY                       (0.5)                           ///< (%)  UVW每相单独输出
 #define CHARGE_TIME                       (100)                           ///< (ms) 预充电时间
 /**
  * IPM测试模式，用以检测MCU——MOS间电路是否正常,
@@ -138,10 +138,10 @@
  * @param (ALIGN_TEST)          测试模式，可用于手动测试电机极对数
  */
 #define ALIGN_MODE                       (ALIGN_DSIABLE)                    ///< 预定位模式选择
-#define ALIGN_Sector                     (5) 							    ///< 预定位扇区 1对应0度，2对应60度
+#define ALIGN_Sector                     (5) 							                  ///< 预定位扇区 1对应0度，2对应60度
 #define ALIGN_CurrentStart               _Q15(2.0/HW_BOARD_CURR_BASE) 
 #define ALIGN_CurrentEnd                 _Q15(2.0/HW_BOARD_CURR_BASE) 
-#define CurrentRampTime	                 (10.0) 							///< 预定位电流爬坡时间
+#define CurrentRampTime	                 (10.0) 							              ///< 预定位电流爬坡时间
 #define CurrentRampSlope                 ((float)(ALIGN_CurrentEnd - ALIGN_CurrentStart))/CurrentRampTime
 #define ALIGN_TIME                       (uint16)(2)                          
 
@@ -153,21 +153,21 @@
 /*默认为六步启动*/
 #define PWM_FREQUENCY_Start              (16.0)                         ///< (kHz) 载波频率
 #define PWM_DEADTIME_Start               (1.0)                          ///< (us) 死区时间
-#define SwitchSVPWMSpeed                 (500.0)						///切环转速
+#define SwitchSVPWMSpeed                 (500.0)						            ///切环转速
 #define SwitchCount                      (PWM_FREQUENCY_Start*1000.0*(0.5/(SwitchSVPWMSpeed*Pole_Pairs/60.0)))
 #define RampSwitchSVPWMSpeed             (float)(SwitchSVPWMSpeed * Pole_Pairs /(THE_CLK_FREQ * 1000 * 60 /(256*65536)))
-#define START_Current                    _Q15(10.0/HW_BOARD_CURR_BASE)  //启动电流(第一拍)
-#define START_Current_Hold               _Q15(10.0/HW_BOARD_CURR_BASE)  //启动电流(第一拍以后)
+#define START_Current                    _Q15(1.0/HW_BOARD_CURR_BASE)  //启动电流(第一拍)
+#define START_Current_Hold               _Q15(1.5/HW_BOARD_CURR_BASE)  //启动电流(第一拍以后)
 #define START_Curernt_Threshold          _Q15(2.5/HW_BOARD_CURR_BASE)  	//启动换相阈值(值越大越难换相，越小越好换相)
 
-#define DeadTimeComp			         _Q15(1.5*PWM_DEADTIME_Start/(1000.0/PWM_FREQUENCY_Start))
-#define DeadTimeFreComp			         _Q15((PWM_DEADTIME/(1000.0/PWM_FREQUENCY))-(PWM_DEADTIME_Start/(1000.0/PWM_FREQUENCY_Start)))		//不同载波频率切环间的电压指令死区补偿
-#define ForcedSwitchTime                    (20.0)						//ms 强拖换相时间
+#define DeadTimeComp			               _Q15(1.5*PWM_DEADTIME_Start/(1000.0/PWM_FREQUENCY_Start))
+#define DeadTimeFreComp			             _Q15((PWM_DEADTIME/(1000.0/PWM_FREQUENCY))-(PWM_DEADTIME_Start/(1000.0/PWM_FREQUENCY_Start)))		//不同载波频率切环间的电压指令死区补偿
+#define ForcedSwitchTime                 (20.0)						              //ms 强拖换相时间
 #define CCW_Period_Threshold             (7.0)                          //ms 反转判断时间
-#define DrvCOMRValue              	   	 (DRV_ARR - 85)					//采样点设置，通过软件设置drver中断比较值采电流
-#define MinUq				           	 (DeadTimeComp + _Q15(0.01))	//最小输出电压占空比，保证采样准确度
-#define UqRamp			               	 (uint8)(160)					//Uq步进值，每一拍若电流小于START_Current_Hold，则Uq步进该值
-#define SwitchMinUq	              	   	 _Q15(0.03)						//切环时的最小占空比
+#define DrvCOMRValue              	   	 (DRV_ARR - 85)					        //采样点设置，通过软件设置drver中断比较值采电流
+#define MinUq				           	         (DeadTimeComp + _Q15(0.01))	  //最小输出电压占空比，保证采样准确度
+#define UqRamp			               	     (uint8)(160)					          //Uq步进值，每一拍若电流小于START_Current_Hold，则Uq步进该值
+#define SwitchMinUq	              	   	 _Q15(0.03)						          //切环时的最小占空比
 
 /* ----------------------------------------------------------------------------------------------------------------------------
                                             4. 环路参数                                                
@@ -181,7 +181,7 @@
 
 #define LOOP_TIME                         (2)                                 // (ms) 速度环调节周期
 
-#define Motor_Target_Speed                S_Value(2000.0)                	  // 目标转速
+#define Motor_Target_Speed                S_Value(2000.0)                	    // 目标转速
 #define Motor_Target_Power                P_Value(50.0)                	      // 目标功率
 
 #define LOOP_KP_Start                     _Q12(1.0)                           // 环路 KP
@@ -198,7 +198,7 @@
 #define LOOP_PIMax                        _Q15(0.99)                          //环路最大输出(大电感开启过调制后，不能写满)
 #define LOOP_PIMIN                        _Q15(0.03)                          //环路最小输出
 
-#define SPEEDLOOP_RAMP_INC                S_Value(20)                         //环路爬坡增量
+#define SPEEDLOOP_RAMP_INC                S_Value(20)                         //环路爬坡增量 
 #define SPEEDLOOP_RAMP_DEC                S_Value(10)                         //环路爬坡减量
 
 #define POWERLOOP_RAMP_INC                P_Value(1.0)                         //环路爬坡增量
@@ -235,7 +235,7 @@
 #define TAILWIND_TIME                      (100)                          ///< (ms) 顺逆风检测时间 
 #define TAILWIND_SPEED                     S_Value(2000)                  // 顺风最小转速，小于该设置值，顺风走静止启动
 #define TAILWIND_STARTDUTY                 _Q15(0.2)                      // 顺逆风切环占空比
-#define WIN_DLY_TAILWIND				   (WIN_DLY_RUN * 0.5)            // 顺风切环延迟角
+#define WIN_DLY_TAILWIND				          (WIN_DLY_RUN * 0.5)             // 顺风切环延迟角
 #define LEADANGLE_TAILWIND                 _Q15(10.0 / 180.0)
 
 /* ----------------------------------------------------------------------------------------------------------------------------
@@ -305,9 +305,9 @@
 #define BEMF_RV1                       (18.0)
 #define BEMF_RV2                       (3.0)
 #define HW_BEMF_VOLT_MAX               (((RV1 + RV2) / RV2) * HW_ADC_REF)
-#define KeVpp                          (13.1)                                  ///< (V)      反电动势测量的峰峰值
-#define KeT                            (1.88)                                   ///< (ms)     反电动势测量的周期
-#define Ke                             (Pole_Pairs * KeVpp * KeT / 207.846)    ///< (V/KRPM) 反电动势常数
+#define KeVpp                          (11)                                     ///< (V)      反电动势测量的峰峰值
+#define KeT                            (19.8)                                   ///< (ms)     反电动势测量的周期
+#define Ke                             (Pole_Pairs * KeVpp * KeT / 207.846)     ///< (V/KRPM) 反电动势常数
 #define Psi                            (float)(Ke * 207.84 / 1000.0 / 2.0 / 1.732 / Pole_Pairs / _2PI) ////磁链8.18e-4
 #define K_Delta_BEMF                   (MOTOR_SPEED_BASE * PWM_FREQUENCY * 1000 * Psi * HW_BOARD_VOLT_MAX / _2PI / 32767)
 #define K_Delta_BEMF1                  _Q12(MOTOR_SPEED_BASE * _2PI * _2PI * Psi * AdaAngle_K_H / 60 / HW_BEMF_VOLT_MAX)
@@ -322,10 +322,10 @@
 /*开窗角度参数配置*/
 #define WIN_DLY_START0          (10.0)
 #define WIN_DLY_RUN0            (27.0)
-#define WIN_DLY_START					  (uint8)(WIN_DLY_START0/60*127)						//开窗角度等于60-WIN_DLY_START
+#define WIN_DLY_START					  (uint8)(WIN_DLY_START0/60*127)						    //开窗角度等于60-WIN_DLY_START
 #define WIN_DLY_RUN						  (uint8)(WIN_DLY_RUN0/60*127)
-#define WIN_THETA_CW            _Q15(145.0 / 180.0)                  //正转开窗开始角度
-#define WIN_THETA_CCW           _Q15(35.0 / 180.0)                     //反转开窗开始角度
+#define WIN_THETA_CW            _Q15(145.0 / 180.0)                           //正转开窗开始角度
+#define WIN_THETA_CCW           _Q15(35.0 / 180.0)                            //反转开窗开始角度
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------
@@ -358,10 +358,10 @@
 #define  PWM_FULLSPEED_DUTY                 _Q15(0.98)                 /*!< (单位：%) PWM 全速占空比 范围：( @ref 0 ~ 0.999]           ( @ref SPEED_MODE 为 PWMMODE 时有效)*/
 #define  MOTOR_SHUTDOWN_FILTER_PERIOD       (25)                       /*!< 开关机滤波计数值                                           ( @ref SPEED_MODE 不為 NONEMODE 时有效) */
 #define  PWM_INVERT_ENABLED                 (0)                        /*!< 启用 PWM 信号倒相  @param (0) 禁用 @param (1) 启用         ( @ref SPEED_MODE 为 PWMMODE 时有效 */
-#define  MC_SPEED_MIN_RPM                  S_Value(200)                         ///< (RPM) 运行最小转速
-#define  MC_SPEED_MAX_RPM                  S_Value(2000)                        ///< (RPM) 运行最大转速
-#define  MC_POWER_MIN                      P_Value(50.0)                        ///< (W) 运行最小功率
-#define  MC_POWER_MAX                      P_Value(250.0)                       ///< (W) 运行最大功率
+#define  MC_SPEED_MIN_RPM                   S_Value(200)               ///< (RPM) 运行最小转速
+#define  MC_SPEED_MAX_RPM                   S_Value(2000)              ///< (RPM) 运行最大转速
+#define  MC_POWER_MIN                       P_Value(50.0)              ///< (W) 运行最小功率
+#define  MC_POWER_MAX                       P_Value(250.0)             ///< (W) 运行最大功率
 #define  PWM_MIN_DUTY                       _Q15(0.100)                /*!< (单位: %) PWM 最低占空比 范围: ( @ref 0 ~ 0.999]           ( @ref SPEED_MODE 为 PWMMODE 时有效) */
 #define  PWM_MAX_DUTY                       _Q15(0.990)                /*!< (单位: %) PWM 最高占空比 范围: ( @ref 0 ~ 0.999]           ( @ref SPEED_MODE 为 PWMMODE 时有效) */
 #define  PWM_IO                             (GP13)                     //PWM输入捕获口
@@ -370,7 +370,7 @@
   * @details 节点数量范围: 2 ~ 24点。 ( @ref SPEED_MODE 为 PWMMODE 时有效)
   * @note    过多的节点会造成容量紧迫，需注意使用场景是否需要如此多的节点。
   */
-#define  MOTOR_SPEEDMODE_MAX_NODE           (2)
+#define  MOTOR_SPEEDMODE_MAX_NODE           (2)    /*!< 调速节点数量  ( @ref SPEED_MODE 为 PWMMODE 时有效) */  
 /** 
   * @brief   PWM 调速占空比节点
   * @details (单位: %) PWM 调速节点占空比数量必须与 @ref MOTOR_SPEEDMODE_MAX_NODE 点数相同  ( @ref SPEED_MODE 为 PWMMODE 时有效)
@@ -392,13 +392,13 @@
                                           11. 启停测试参数                                                
 ---------------------------------------------------------------------------------------------------------------------------- */
 #define StartON_Time                   (2000)                                  // (ms) 启动运行时间
-#define StartOFF_Time                  (500)                                 // (ms) 停止时间
+#define StartOFF_Time                  (500)                                   // (ms) 停止时间
 #define MOTOR_ONOFF_POW                 P_Value(150.0)                         // 启停测试目标功率
 #define MOTOR_ONOFF_SPEED               S_Value(60000.0)                       // 启停测试目标速度
 
 #define StopBrake_Enble                (0)
 #define StopWaitTime                   (4000)                                  // (ms) 刹车等待时间
-#define Stop_MOTOR_SPEED_RPM            S_Value(30000)        ///< (RPM) 小于该转速刹车
+#define Stop_MOTOR_SPEED_RPM            S_Value(300)                           ///< (RPM) 小于该转速刹车
 /* ----------------------------------------------------------------------------------------------------------------------------
                                           12. FG输出                                                  
 ---------------------------------------------------------------------------------------------------------------------------- */
@@ -409,10 +409,10 @@
  * @param (SOFT_TIMFG_OUTPUT)    通过软件定时器输出FG信号 
  */
 #define	 FG_MODE														(HARD_TIMFG_OUTPUT)
-#define  FG_INITIAL_DELAY_TIMES             (100)                     /*!< (单位: mS) FG输出时机  (范围: 1000 ~ 6000) */
+#define  FG_INITIAL_DELAY_TIMES             (100)                      /*!< (单位: mS) FG输出时机  (范围: 1000 ~ 6000) */
 #define  FG_PULSE_PERIOD                    (2)                        /*!< FG 每转脉波个数  ( @ref ROTATE_SIGNAL_TYPE 為 RD_TYPE 时有效) */
-#define  FG_ALARM_LOGIC                     (1)                /*!< FG 信号报警状态  @see LOGIC_HIGH 高电平 @see LOGIC_LOW 低电平 */
-#define  FG_FAKE_ENABLED                    (0)                        /*!< 啟用假轉速輸出功能  (注意: PWM_FULLCONTROL_ENABLED 与本功能冲突，不得同时启用)  @param (0) 禁用 @param (1) 启用 */
+#define  FG_ALARM_LOGIC                     (1)                        /*!< FG 信号报警状态  @see LOGIC_HIGH 高电平 @see LOGIC_LOW 低电平 */
+#define  FG_FAKE_ENABLED                    (0)                        /*!< 启用假转速输出功能  (注意: PWM_FULLCONTROL_ENABLED 与本功能冲突，不得同时启用)  @param (0) 禁用 @param (1) 启用 */
 #define  M_speedFlt2RPM(_Val_)           		(uint16)((float)(_Val_) / 2 / 32767.0f * (float)MOTOR_SPEED_BASE) //注意防止溢出
 #define  M_speedFlt2FG(_Val_)            		(uint16)(FG_FREQ_BASE * 2 / ((float)M_speedFlt2RPM(_Val_) / (60.0 / (float)FG_PULSE_PERIOD)))
 
